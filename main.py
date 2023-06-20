@@ -90,6 +90,7 @@ class Field:
         pass
 
     def update(self):
+        # ここにコメントを追加！！！！！
         # UIの更新
         for UI in self.menu.UIs.values():
             UI.update()    
