@@ -27,9 +27,9 @@ class Coin(metaclass=ABCMeta):
         self.dy = dy * self.camera.size#ys加速度
 
     # 座標を移動させる関数
-    def move_coin(self, x, y):
-        self.x += x
-        self.y += y
+    def move_coin(self):
+        self.x += self.vx/FPS
+        self.y += self.vy/FPS
     
     # 座標を変更する関数
     def warp_coin(self, x, y):
@@ -50,14 +50,14 @@ class Coin(metaclass=ABCMeta):
 
 # 普通のコイン
 class Normal_coin(Coin):
-    def __init__(self, x, y, r):
+    def __init__(self, x, y, r, vx, vy, dx, dy ):
         # self.str = ""
         self.list.append(self)
-        super().__init__(x, y, r)
+        super().__init__(x, y, r, vx, vy, dx, dy)
         self.color = (255, 255, 0)
 
     def update(self, time):
-        pass
+        self.move_coin()
 
     def draw(self, screen, x, y):
         # コンクリート地面

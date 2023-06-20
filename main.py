@@ -64,7 +64,7 @@ class Field:
         # ボードを生成
         Pusher_1(400,200,700, 400)
         # コインオブジェクトを初期位置に生成
-        Normal_coin(700, 500, 50)
+        Normal_coin(700, 500, 50 ,0 ,60 ,0 ,0)
         
 
         self.camera.clear_OBJlist()
@@ -90,20 +90,17 @@ class Field:
         pass
 
     def update(self):
-
         # UIの更新
         for UI in self.menu.UIs.values():
             UI.update()    
-        """ゲーム状態の更新"""
-        if(self.mode == "play"):
-            #時間を進める
-            self.time += 1
-            #状態を更新する(時間に依存)
-            for mapobj in self.Coins:
-                mapobj.update(self.time)
+        #時間を進める
+        self.time += 1
+        #状態を更新する(時間に依存)
+        for coins in self.Coins:
+            coins.update(self.time)
 
-            for vehicle in self.Pushers:
-                vehicle.update(self.time)
+        for pusher in self.Pushers:
+            pusher.update(self.time)
     
     def event(self):
         for event in pygame.event.get():
