@@ -17,12 +17,14 @@ class Coin(metaclass=ABCMeta):
     def set_camera(cls, camera):
         cls.camera = camera
 
-    def __init__(self, x, y, r):
+    def __init__(self, x, y, r, vx, vy, dx, dy ):
         self.x = x * self.camera.size#x座標
         self.y = y * self.camera.size#y座標
         self.r = r * self.camera.size#半径
-        
-
+        self.vx = vx * self.camera.size#x速度
+        self.vy = vy * self.camera.size#y速度
+        self.dx = dx * self.camera.size#x加速度
+        self.dy = dy * self.camera.size#ys加速度
 
     # 座標を移動させる関数
     def move_coin(self, x, y):

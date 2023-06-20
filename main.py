@@ -1,4 +1,5 @@
 import pygame
+import random
 from pygame.locals import *
 from Common_Variables import *
 from menu import *
@@ -89,10 +90,10 @@ class Field:
         pass
 
     def update(self):
+
         # UIの更新
         for UI in self.menu.UIs.values():
-            UI.update()
-            
+            UI.update()    
         """ゲーム状態の更新"""
         if(self.mode == "play"):
             #時間を進める
