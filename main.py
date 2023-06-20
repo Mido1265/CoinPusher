@@ -103,6 +103,7 @@ class Field:
             pusher.update(self.time)
     
     def event(self):
+        #イベントの処理
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
