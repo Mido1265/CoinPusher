@@ -1,5 +1,6 @@
 import pygame
 from Common_Variables import *
+# tesutodesu!!!
 class Camera():
     def __init__(self):
         self.x = 0 # カメラのx座標
