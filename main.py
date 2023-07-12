@@ -4,6 +4,7 @@ from Common_Variables import *
 from menu import *
 from camera import *
 
+#参加できたぞおぉぉ！！！by Nunn
 # ----------------------------------#
 # Field(ゲーム領域)の定義
 class Field:
