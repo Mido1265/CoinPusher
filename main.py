@@ -4,7 +4,6 @@ from Common_Variables import *
 from menu import *
 from camera import *
 
-#参加できたぞおぉぉ！！！by Nunn
 # ----------------------------------#
 # Field(ゲーム領域)の定義
 class Field:
@@ -36,7 +35,7 @@ class Field:
         # self.load_images()
         # self.load_sounds()
 
-        # オブジェクト生成時の自動格納先リストを設定
+        # オブジェクト生成時に自動格納されるリストを設定
         self.Coins = []
         Coin.set_list(self.Coins)
 
@@ -64,7 +63,8 @@ class Field:
         # ボードを生成
         Pusher_1(400,200,700, 400)
         # コインオブジェクトを初期位置に生成
-        Normal_coin(700, 500, 50)
+        Normal_coin(700, 500, 10, 0)
+        Normal_coin(1000, 500, -10, 0)
         
 
         self.camera.clear_OBJlist()
@@ -89,6 +89,34 @@ class Field:
         #Block.bomb_sound = load_sound("bomb.wav")
         pass
 
+    def checkclollision_circle_circle(self):
+        for i, circle1 in enumerate(self.Coins):
+            for circle2 in self.Coins[i+1:]:
+                distance = math.sqrt((circle2.x - circle1.x)**2 + (circle2.y - circle1.y)**2)
+                if distance <= circle1.r + circle2.r:
+                    angle = math.atan2(circle2.y - circle1.y, circle2.x - circle1.x)
+                    overlap = (circle1.r + circle2.r - distance) / 2
+
+                    # 重なりを解消する
+                    circle1.x -= overlap * math.cos(angle)
+                    circle1.y -= overlap * math.sin(angle)
+                    circle2.x += overlap * math.cos(angle)
+                    circle2.y += overlap * math.sin(angle)
+
+                    # 速度の計算
+                    dvx = circle2.dx - circle1.dx
+                    dvy = circle2.dy - circle1.dy
+                    dot_product = (dvx * (circle2.x - circle1.x) + dvy * (circle2.y - circle1.y)) / distance**2
+                    px = dot_product * (circle2.x - circle1.x)
+                    py = dot_product * (circle2.y - circle1.y)
+
+                    # 衝突後の速度の計算
+                    circle1.dx += (circle2.mass * px) / (circle1.mass + circle1.mass)
+                    circle1.dy += (circle2.mass * py) / (circle1.mass + circle1.mass)
+                    circle2.dx -= (circle1.mass * px) / (circle2.mass + circle2.mass)
+                    circle2.dy -= (circle1.mass * py) / (circle2.mass + circle2.mass)
+
+
     def update(self):
         # UIの更新
         for UI in self.menu.UIs.values():
@@ -98,6 +126,10 @@ class Field:
         if(self.mode == "play"):
             #時間を進める
             self.time += 1
+
+            # 円同士の衝突判定と反射処理
+            self.checkclollision_circle_circle()
+
             #状態を更新する(時間に依存)
             for mapobj in self.Coins:
                 mapobj.update(self.time)
@@ -116,6 +148,9 @@ class Field:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
+                # ESCキーならスクリプトを終了
+                if event.key == pygame.K_SPACE:
+                    self.mode = "play"
                 
                 # # Ctrl + zキーで最新のマップオブジェクトを一つ削除
                 # key = pygame.key.get_pressed()

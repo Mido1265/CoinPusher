@@ -11,6 +11,12 @@ FPS = 60
 # 1フレームで何time進むか
 TIME = 1
 
+COFF = 0.06 # コインの摩擦係数(Coefficient of friction)
+
+NORMALCOIN_R = 50 # ノーマルコインの半径
+NORMALCOIN_COLOR = (255, 0, 0) # ノーマルコインの色
+NORMALCOIN_MASS = 1 # ノーマルコインの重さ
+
 # 画像, 音の読み込み
 def load_image(filename,w = 0,h = 0, colorkey = None):
     """画像をロードして画像と矩形を返す"""

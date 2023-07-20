@@ -39,8 +39,11 @@ class Menu():
               "これは/サンプルです", 40, (100, 0, 0), drawFlag = True,
               backcolor = (0, 255, 0))
         
+        Text("開始文", (CANVAS_WIDTH * (10/20) - 10, CANVAS_HEIGHT * (8 / 10)),
+              "Spaceで開始", 40, (255, 255, 255))
+        
         textRule= TextRule()  # テキスト処理のロジックInputTextクラスをインスタンス化
-        Textbox("サンプル", pygame.Rect(100, 100, 50, 50),"ここに入力", textRule, drawFlag = True)
+        #Textbox("サンプル", pygame.Rect(100, 100, 50, 50),"ここに入力", textRule, drawFlag = True)
         
 
     def draw(self):
